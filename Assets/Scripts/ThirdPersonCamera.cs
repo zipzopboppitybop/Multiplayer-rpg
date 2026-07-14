@@ -1,3 +1,4 @@
+using Fusion;
 using UnityEngine;
 public class ThirdPersonCamera : MonoBehaviour
 {
@@ -12,16 +13,8 @@ public class ThirdPersonCamera : MonoBehaviour
         if (Target == null)
             return;
 
-        transform.position = Target.position;
-
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
-
-        _verticalRotation -= mouseY * MouseSensitivity;
-        _verticalRotation = Mathf.Clamp(_verticalRotation, -70f, 70f);
-
-        _horizontalRotation += mouseX * MouseSensitivity;
-
-        transform.rotation = Quaternion.Euler(_verticalRotation, _horizontalRotation, 0);
+        Vector3 newPosition = new Vector3(Target.position.x, Target.position.y + 5.0f, Target.position.z - 7.0f);
+        transform.position = newPosition;
+        transform.rotation = Quaternion.Euler(40f, 0f, 0f);
     }
 }

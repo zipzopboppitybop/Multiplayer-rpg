@@ -23,6 +23,7 @@ public class PlayerController : NetworkBehaviour
         _camera.AddComponent<Camera>();
         _camera.AddComponent<ThirdPersonCamera>();
         _camera.GetComponent<ThirdPersonCamera>().Target = transform;
+        _camera.transform.SetParent(this.transform);
     }
 
     public override void FixedUpdateNetwork()
