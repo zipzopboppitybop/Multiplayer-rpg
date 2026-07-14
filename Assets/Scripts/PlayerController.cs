@@ -1,14 +1,28 @@
 using Fusion;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 public class PlayerController : NetworkBehaviour
 {
     [SerializeField] private float MoveSpeed = 5f;
     private NetworkCharacterController _cc;
     private CharacterController _characterController;
+    public GameObject _camera;
     private void Awake()
     {
         _cc = GetComponent<NetworkCharacterController>();
         _characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public override void Spawned()
+    {
+        if (!Object.HasInputAuthority) return;
+
+        _camera = new GameObject("Camera");
+        _camera.AddComponent<Camera>();
+        _camera.AddComponent<ThirdPersonCamera>();
+        _camera.GetComponent<ThirdPersonCamera>().Target = transform;
     }
 
     public override void FixedUpdateNetwork()
