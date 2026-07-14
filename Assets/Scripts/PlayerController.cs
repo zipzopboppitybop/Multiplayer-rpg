@@ -26,6 +26,11 @@ public class PlayerController : NetworkBehaviour
         _camera.transform.SetParent(this.transform);
     }
 
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        Destroy(_camera);
+    }
+
     public override void FixedUpdateNetwork()
     {
         if (GetInput(out NetworkInputData data))

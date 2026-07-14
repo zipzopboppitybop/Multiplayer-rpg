@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
-public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
+public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
     [SerializeField] private NetworkPrefabRef _playerPrefab;
 
