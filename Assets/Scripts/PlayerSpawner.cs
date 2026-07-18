@@ -1,19 +1,25 @@
-using System;
-using System.Collections.Generic;
 using Fusion;
 using Fusion.Sockets;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using static Unity.Collections.Unicode;
 
 public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
     [SerializeField] private NetworkPrefabRef _playerPrefab;
 
+    // Player stuff
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private NetworkRunner _runner;
     private PlayerControls _playerControls;
     private bool _jumpPressed;
+
+    // Enemy stuff
+    private List<NetworkObject> _spawnedEnemies = new List<NetworkObject>();
+
     private void Awake() 
     {
         _playerControls = new PlayerControls();
@@ -110,6 +116,14 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
             {
                 StartGame(GameMode.Client);
             }
+        }
+    }
+    public void SpawnEnemy(NetworkPrefabRef enemy, Vector3 spawnPosition)
+    {
+        if (_runner.IsServer)
+        {
+            NetworkObject networkEnemyObject = _runner.Spawn(enemy, spawnPosition, Quaternion.identity, PlayerRef.None);
+            _spawnedEnemies.Add(networkEnemyObject);
         }
     }
 }
