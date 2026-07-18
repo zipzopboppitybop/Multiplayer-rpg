@@ -1013,6 +1013,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Damage Enemy",
+                    "type": "Button",
+                    "id": "1aa8a28f-e4bd-4be1-b6c2-70279f8271e5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1035,6 +1044,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Heal Player",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e11f1d7-22ba-4857-84c1-80ef3b35b146",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Damage Enemy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
