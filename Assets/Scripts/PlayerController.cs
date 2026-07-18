@@ -4,6 +4,7 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerController : NetworkBehaviour
 {
     [SerializeField] private float MoveSpeed = 5f;
+    private Health _hp;
     private NetworkCharacterController _cc;
     private CharacterController _characterController;
     public GameObject _camera;
@@ -11,6 +12,7 @@ public class PlayerController : NetworkBehaviour
     {
         _cc = GetComponent<NetworkCharacterController>();
         _characterController = GetComponent<CharacterController>();
+        _hp = GetComponent<Health>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -46,6 +48,16 @@ public class PlayerController : NetworkBehaviour
         if (data.Jump)
         {
             _cc.Jump();
+        }
+
+        if (data.Damage)
+        {
+            _hp.Damage(1);
+        }
+
+        if (data.Heal)
+        {
+            _hp.Heal(1);
         }
 
         _cc.Move(move);

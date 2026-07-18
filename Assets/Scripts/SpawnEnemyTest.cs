@@ -9,7 +9,7 @@ public class SpawnEnemyTest : NetworkBehaviour
     [SerializeField] private Transform _spawnPosition;
     [SerializeField] private int _spawnCountMax;
 
-    private int _spawnCount { get; set; }
+    private int _spawnCount;
 
     private void OnTriggerEnter(Collider other)
     {
