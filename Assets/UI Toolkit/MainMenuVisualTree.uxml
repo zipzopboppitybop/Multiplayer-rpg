@@ -3,5 +3,6 @@
     <ui:VisualElement name="Container" style="flex-grow: 1;">
         <ui:Label text="Main Menu" class="header"/>
         <ui:Button text="Host" name="HostButton" class="button" style="top: auto;"/>
+        <ui:Button text="Join" name="JoinButton" class="button" style="top: auto;"/>
     </ui:VisualElement>
 </ui:UXML>
