@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15696e60fe853874bb2e23b07409b5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 2
+  data: {fileID: 11400000, guid: 7d7e2d05a2a7b464ebac95a986e44a3d, type: 2}
   detectionRadius: 5
 --- !u!114 &2802580126139112098
 MonoBehaviour:

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64982b1a4d9a5f438b84a12b1b8b337, type: 3}
+  m_Name: TestEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  enemyName: Test
+  maxHealth: 5
+  droppedItem: {fileID: 11400000, guid: c6756cc8d77b5ee4394521c87aec8b2a, type: 2}
+  speed: 2
+  detectionRadius: 5

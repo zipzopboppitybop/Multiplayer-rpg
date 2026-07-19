@@ -7,8 +7,7 @@ public class Enemy : NetworkBehaviour
     [Networked] private Vector3 targetLastLocation { get; set; }
     [Networked] private NetworkBool hasLastKnownLocation { get; set; }
 
-    [SerializeField] private float speed = 2f;
-    [SerializeField] private float detectionRadius = 5f;
+    [SerializeField] EnemyData data;
 
     public override void FixedUpdateNetwork()
     {
@@ -16,7 +15,7 @@ public class Enemy : NetworkBehaviour
 
         CheckForPlayers();
 
-        float step = speed * Runner.DeltaTime;
+        float step = data.speed * Runner.DeltaTime;
 
         if (networkedTarget != null)
         {
@@ -38,7 +37,7 @@ public class Enemy : NetworkBehaviour
         if (networkedTarget != null)
         {
             float distance = Vector3.Distance(transform.position, networkedTarget.transform.position);
-            if (distance > detectionRadius)
+            if (distance > data.detectionRadius)
             {
                 targetLastLocation = networkedTarget.transform.position;
                 hasLastKnownLocation = true;
@@ -48,7 +47,7 @@ public class Enemy : NetworkBehaviour
         }
         else
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, data.detectionRadius);
             foreach (var hit in hitColliders)
             {
                 if (hit.CompareTag("Player") && hit.TryGetComponent<NetworkObject>(out var playerNetObj))
