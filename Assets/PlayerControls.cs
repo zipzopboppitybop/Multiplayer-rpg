@@ -1081,70 +1081,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             ""name"": ""Test"",
             ""id"": ""01a4bd52-fa08-4cc5-8078-fb73f2096ba7"",
-            ""actions"": [
-                {
-                    ""name"": ""Damage Player"",
-                    ""type"": ""Button"",
-                    ""id"": ""89abca5b-5fce-4654-b2d3-a04655c30f3a"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Heal Player"",
-                    ""type"": ""Button"",
-                    ""id"": ""fdc79d61-0347-4d6a-bc97-3b04e1696780"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Damage Enemy"",
-                    ""type"": ""Button"",
-                    ""id"": ""1aa8a28f-e4bd-4be1-b6c2-70279f8271e5"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""a2099643-7b3f-4ef8-824c-ca74edc13c38"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Damage Player"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""64c2bedd-19fa-41ce-936e-30639539346b"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Heal Player"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0e11f1d7-22ba-4857-84c1-80ef3b35b146"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Damage Enemy"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
+            ""actions"": [],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": [
@@ -1235,9 +1173,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         // Test
         m_Test = asset.FindActionMap("Test", throwIfNotFound: true);
-        m_Test_DamagePlayer = m_Test.FindAction("Damage Player", throwIfNotFound: true);
-        m_Test_HealPlayer = m_Test.FindAction("Heal Player", throwIfNotFound: true);
-        m_Test_DamageEnemy = m_Test.FindAction("Damage Enemy", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -1699,9 +1634,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // Test
     private readonly InputActionMap m_Test;
     private List<ITestActions> m_TestActionsCallbackInterfaces = new List<ITestActions>();
-    private readonly InputAction m_Test_DamagePlayer;
-    private readonly InputAction m_Test_HealPlayer;
-    private readonly InputAction m_Test_DamageEnemy;
     /// <summary>
     /// Provides access to input actions defined in input action map "Test".
     /// </summary>
@@ -1713,18 +1645,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
         public TestActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "Test/DamagePlayer".
-        /// </summary>
-        public InputAction @DamagePlayer => m_Wrapper.m_Test_DamagePlayer;
-        /// <summary>
-        /// Provides access to the underlying input action "Test/HealPlayer".
-        /// </summary>
-        public InputAction @HealPlayer => m_Wrapper.m_Test_HealPlayer;
-        /// <summary>
-        /// Provides access to the underlying input action "Test/DamageEnemy".
-        /// </summary>
-        public InputAction @DamageEnemy => m_Wrapper.m_Test_DamageEnemy;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1751,15 +1671,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_TestActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_TestActionsCallbackInterfaces.Add(instance);
-            @DamagePlayer.started += instance.OnDamagePlayer;
-            @DamagePlayer.performed += instance.OnDamagePlayer;
-            @DamagePlayer.canceled += instance.OnDamagePlayer;
-            @HealPlayer.started += instance.OnHealPlayer;
-            @HealPlayer.performed += instance.OnHealPlayer;
-            @HealPlayer.canceled += instance.OnHealPlayer;
-            @DamageEnemy.started += instance.OnDamageEnemy;
-            @DamageEnemy.performed += instance.OnDamageEnemy;
-            @DamageEnemy.canceled += instance.OnDamageEnemy;
         }
 
         /// <summary>
@@ -1771,15 +1682,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="TestActions" />
         private void UnregisterCallbacks(ITestActions instance)
         {
-            @DamagePlayer.started -= instance.OnDamagePlayer;
-            @DamagePlayer.performed -= instance.OnDamagePlayer;
-            @DamagePlayer.canceled -= instance.OnDamagePlayer;
-            @HealPlayer.started -= instance.OnHealPlayer;
-            @HealPlayer.performed -= instance.OnHealPlayer;
-            @HealPlayer.canceled -= instance.OnHealPlayer;
-            @DamageEnemy.started -= instance.OnDamageEnemy;
-            @DamageEnemy.performed -= instance.OnDamageEnemy;
-            @DamageEnemy.canceled -= instance.OnDamageEnemy;
         }
 
         /// <summary>
@@ -2034,26 +1936,5 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// <seealso cref="TestActions.RemoveCallbacks(ITestActions)" />
     public interface ITestActions
     {
-        /// <summary>
-        /// Method invoked when associated input action "Damage Player" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDamagePlayer(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Heal Player" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnHealPlayer(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Damage Enemy" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDamageEnemy(InputAction.CallbackContext context);
     }
 }

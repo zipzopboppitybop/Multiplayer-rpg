@@ -50,16 +50,16 @@ public class PlayerController : NetworkBehaviour
             _cc.Jump();
         }
 
-        if (data.Damage)
+        if (data.Attack)
         {
-            _hp.Damage(1);
-        }
-
-        if (data.Heal)
-        {
-            _hp.Heal(1);
+            Attack();
         }
 
         _cc.Move(move);
+    }
+
+    private void Attack()
+    {
+        Debug.Log($"{_cc.Id} attacked");
     }
 }

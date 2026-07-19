@@ -995,70 +995,8 @@
         {
             "name": "Test",
             "id": "01a4bd52-fa08-4cc5-8078-fb73f2096ba7",
-            "actions": [
-                {
-                    "name": "Damage Player",
-                    "type": "Button",
-                    "id": "89abca5b-5fce-4654-b2d3-a04655c30f3a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Heal Player",
-                    "type": "Button",
-                    "id": "fdc79d61-0347-4d6a-bc97-3b04e1696780",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Damage Enemy",
-                    "type": "Button",
-                    "id": "1aa8a28f-e4bd-4be1-b6c2-70279f8271e5",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "a2099643-7b3f-4ef8-824c-ca74edc13c38",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Damage Player",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "64c2bedd-19fa-41ce-936e-30639539346b",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Heal Player",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0e11f1d7-22ba-4857-84c1-80ef3b35b146",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Damage Enemy",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": [
