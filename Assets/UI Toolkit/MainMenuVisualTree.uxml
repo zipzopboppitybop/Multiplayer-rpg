@@ -4,5 +4,6 @@
         <ui:Label text="Main Menu" class="header"/>
         <ui:Button text="Host" name="HostButton" class="button" style="top: auto;"/>
         <ui:Button text="Join" name="JoinButton" class="button" style="top: auto;"/>
+        <ui:Button text="Quit" name="QuitButton" class="button" style="top: auto;"/>
     </ui:VisualElement>
 </ui:UXML>
