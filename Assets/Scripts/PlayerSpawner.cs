@@ -89,13 +89,14 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
         // Create the Fusion runner and let it know that we will be providing user input
         _runner = gameObject.AddComponent<NetworkRunner>();
         _runner.ProvideInput = true;
+        DontDestroyOnLoad(gameObject);
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        var scene = SceneRef.FromIndex(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/SampleScene.unity"));
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
-            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
+            sceneInfo.AddSceneRef(scene, LoadSceneMode.Single);
         }
 
         // Start or join (depends on gamemode) a session with a specific name
@@ -107,21 +108,21 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
     }
-    private void OnGUI()
-    {
-        if (_runner == null)
-        {
-            if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
-            {
-                StartGame(GameMode.Host);
-            }
+    //private void OnGUI()
+    //{
+    //    if (_runner == null)
+    //    {
+    //        if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
+    //        {
+    //            StartGame(GameMode.Host);
+    //        }
 
-            if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
-            {
-                StartGame(GameMode.Client);
-            }
-        }
-    }
+    //        if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
+    //        {
+    //            StartGame(GameMode.Client);
+    //        }
+    //    }
+    //}
     public void SpawnEnemy(NetworkPrefabRef enemy, Vector3 spawnPosition)
     {
         if (_runner.IsServer)
@@ -134,5 +135,15 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void SpawnItem(NetworkPrefabRef item, Vector3 spawnPosition)
     {
 
+    }
+
+    public void CallHostGame()
+    {
+        StartGame(GameMode.Host);
+    }
+
+    public void CallJoinGame()
+    {
+        StartGame(GameMode.Client);
     }
 }
