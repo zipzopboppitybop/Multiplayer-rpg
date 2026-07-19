@@ -3,12 +3,14 @@ using Fusion;
 public class Health : NetworkBehaviour
 {
     [SerializeField] private int _health;
+    private bool isEnemy;
 
     private int _maxHealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _maxHealth = _health;
+        isEnemy = TryGetComponent<Enemy>(out var enemy);
         Debug.Log(_maxHealth);
     }
 
@@ -23,6 +25,10 @@ public class Health : NetworkBehaviour
         {
             _health = 0;
 
+            if (isEnemy)
+            {
+                Destroy(gameObject);
+            }
             Debug.Log("I am dead");
         }
 

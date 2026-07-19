@@ -71,9 +71,9 @@ public class PlayerController : NetworkBehaviour
         {
             Collider hit = hitColliders[i];
 
-            if (hit.CompareTag("Enemy") && hit.TryGetComponent<NetworkObject>(out var enemy))
+            if (hit.CompareTag("Enemy") && hit.TryGetComponent<Health>(out var enemy))
             {
-                Debug.Log($"Enemy {enemy.Id} was attacked by player {_cc.Id}");
+                enemy.Damage(1);
             }
         }
     }
