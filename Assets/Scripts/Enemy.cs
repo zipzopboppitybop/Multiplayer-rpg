@@ -7,7 +7,7 @@ public class Enemy : NetworkBehaviour
     [Networked] private Vector3 targetLastLocation { get; set; }
     [Networked] private NetworkBool hasLastKnownLocation { get; set; }
 
-    [SerializeField] EnemyData data;
+    [SerializeField] public EnemyData data;
 
     public override void FixedUpdateNetwork()
     {

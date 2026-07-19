@@ -130,4 +130,9 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
             _spawnedEnemies.Add(networkEnemyObject);
         }
     }
+
+    public void SpawnItem(NetworkPrefabRef item, Vector3 spawnPosition)
+    {
+
+    }
 }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: Test
   maxHealth: 5
-  droppedItem: {fileID: 11400000, guid: c6756cc8d77b5ee4394521c87aec8b2a, type: 2}
+  droppedItem:
+    RawGuidValue: bccf3ff8d3a9a8f4481454e21567ea6c
   speed: 2
   detectionRadius: 5

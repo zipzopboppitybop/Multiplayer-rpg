@@ -4,13 +4,23 @@ public class Health : NetworkBehaviour
 {
     [SerializeField] private int _health;
     private bool isEnemy;
+    private EnemyData enemyData;
 
     private int _maxHealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _maxHealth = _health;
-        isEnemy = TryGetComponent<Enemy>(out var enemy);
+        if (TryGetComponent<Enemy>(out var enemy))
+        {
+            isEnemy = true;
+            enemyData = enemy.data;
+            _maxHealth = enemyData.maxHealth;
+        }
+        else
+        {
+            _maxHealth = _health;
+        }
+
         Debug.Log(_maxHealth);
     }
 
@@ -27,7 +37,8 @@ public class Health : NetworkBehaviour
 
             if (isEnemy)
             {
-                Destroy(gameObject);
+                Runner.Spawn(enemyData.droppedItem, transform.position, Quaternion.identity, PlayerRef.None);
+                Runner.Despawn(Object);
             }
             Debug.Log("I am dead");
         }
