@@ -1,5 +1,6 @@
 using UnityEngine;
 using Fusion;
+using UnityEngine.Events;
 public class Health : NetworkBehaviour
 {
     [SerializeField] private int _health;
@@ -7,6 +8,12 @@ public class Health : NetworkBehaviour
     private EnemyData enemyData;
 
     private int _maxHealth;
+
+    // Health Events
+    public UnityEvent<int> OnHealthCreated;
+    public UnityEvent<int> OnDamagePlayer;
+    public UnityEvent<int> OnHealPlayer;
+    public UnityEvent OnPlayerDeath;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +28,8 @@ public class Health : NetworkBehaviour
             _maxHealth = _health;
         }
 
+        OnHealthCreated.Invoke(_maxHealth);
+
         Debug.Log(_maxHealth);
     }
 
@@ -31,6 +40,11 @@ public class Health : NetworkBehaviour
 
         _health -= damage;
 
+        if (!isEnemy)
+        {
+            OnDamagePlayer.Invoke(_health);
+        }
+
         if (_health <= 0)
         {
             _health = 0;
@@ -40,6 +54,8 @@ public class Health : NetworkBehaviour
                 Runner.Spawn(enemyData.droppedItem, transform.position, Quaternion.identity, PlayerRef.None);
                 Runner.Despawn(Object);
             }
+
+            OnPlayerDeath.Invoke();
             Debug.Log("I am dead");
         }
 
@@ -52,6 +68,11 @@ public class Health : NetworkBehaviour
         if (_health >= _maxHealth) return;
 
         _health += heal;
+
+        if (!isEnemy)
+        {
+            OnHealPlayer.Invoke(_health);
+        }
 
         if (_health >= _maxHealth)
         {
