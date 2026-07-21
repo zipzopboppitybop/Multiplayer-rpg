@@ -58,6 +58,16 @@ public class PlayerController : NetworkBehaviour
             Attack();
         }
 
+        if (data.DamagePlayer)
+        {
+            _hp.Damage(1);
+        }
+
+        if (data.HealPlayer)
+        {
+            _hp.Heal(1);
+        }
+
         _cc.Move(move);
     }
     private void Attack()

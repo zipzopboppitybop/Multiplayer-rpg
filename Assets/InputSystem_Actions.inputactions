@@ -995,8 +995,50 @@
         {
             "name": "Test",
             "id": "01a4bd52-fa08-4cc5-8078-fb73f2096ba7",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "DamagePlayer",
+                    "type": "Button",
+                    "id": "efe8c484-0169-4386-890c-97800a314ab1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HealPlayer",
+                    "type": "Button",
+                    "id": "457387d7-db85-43ee-a8c5-5cd31143faee",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "85986c03-2118-4fe9-aabd-52e7427f1a96",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DamagePlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02b9f278-3fd6-4e82-bc7e-7113ae690ff4",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "HealPlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

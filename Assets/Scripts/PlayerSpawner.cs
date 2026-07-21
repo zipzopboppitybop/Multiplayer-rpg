@@ -18,6 +18,10 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private bool _jumpPressed;
     private bool _attackPressed;
 
+    // Debugging 
+    private bool _damagePlayer;
+    private bool _healPlayer;
+
     // Enemy stuff
     private List<NetworkObject> _spawnedEnemies = new List<NetworkObject>();
 
@@ -29,6 +33,10 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
         // Subscribing to the event directly because of weird behaviour
         _playerControls.Player.Jump.performed += _ => _jumpPressed = true;
         _playerControls.Player.Attack.performed += _ => _attackPressed = true;
+
+        // Debugging
+        _playerControls.Test.DamagePlayer.performed += _ => _damagePlayer = true;
+        _playerControls.Test.HealPlayer.performed += _ => _healPlayer = true;
     }
 
     private void OnDestroy() 
@@ -65,6 +73,12 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
         data.Attack = _attackPressed;
         _jumpPressed = false;
         _attackPressed = false;
+
+        // Debugging
+        data.DamagePlayer = _damagePlayer;
+        data.HealPlayer = _healPlayer;
+        _damagePlayer = false;
+        _healPlayer = false;
 
         input.Set(data);
     }

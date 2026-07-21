@@ -1081,8 +1081,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             ""name"": ""Test"",
             ""id"": ""01a4bd52-fa08-4cc5-8078-fb73f2096ba7"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""DamagePlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""efe8c484-0169-4386-890c-97800a314ab1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HealPlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""457387d7-db85-43ee-a8c5-5cd31143faee"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""85986c03-2118-4fe9-aabd-52e7427f1a96"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DamagePlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02b9f278-3fd6-4e82-bc7e-7113ae690ff4"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""HealPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1173,6 +1215,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         // Test
         m_Test = asset.FindActionMap("Test", throwIfNotFound: true);
+        m_Test_DamagePlayer = m_Test.FindAction("DamagePlayer", throwIfNotFound: true);
+        m_Test_HealPlayer = m_Test.FindAction("HealPlayer", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -1634,6 +1678,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // Test
     private readonly InputActionMap m_Test;
     private List<ITestActions> m_TestActionsCallbackInterfaces = new List<ITestActions>();
+    private readonly InputAction m_Test_DamagePlayer;
+    private readonly InputAction m_Test_HealPlayer;
     /// <summary>
     /// Provides access to input actions defined in input action map "Test".
     /// </summary>
@@ -1645,6 +1691,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
         public TestActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Test/DamagePlayer".
+        /// </summary>
+        public InputAction @DamagePlayer => m_Wrapper.m_Test_DamagePlayer;
+        /// <summary>
+        /// Provides access to the underlying input action "Test/HealPlayer".
+        /// </summary>
+        public InputAction @HealPlayer => m_Wrapper.m_Test_HealPlayer;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1671,6 +1725,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_TestActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_TestActionsCallbackInterfaces.Add(instance);
+            @DamagePlayer.started += instance.OnDamagePlayer;
+            @DamagePlayer.performed += instance.OnDamagePlayer;
+            @DamagePlayer.canceled += instance.OnDamagePlayer;
+            @HealPlayer.started += instance.OnHealPlayer;
+            @HealPlayer.performed += instance.OnHealPlayer;
+            @HealPlayer.canceled += instance.OnHealPlayer;
         }
 
         /// <summary>
@@ -1682,6 +1742,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="TestActions" />
         private void UnregisterCallbacks(ITestActions instance)
         {
+            @DamagePlayer.started -= instance.OnDamagePlayer;
+            @DamagePlayer.performed -= instance.OnDamagePlayer;
+            @DamagePlayer.canceled -= instance.OnDamagePlayer;
+            @HealPlayer.started -= instance.OnHealPlayer;
+            @HealPlayer.performed -= instance.OnHealPlayer;
+            @HealPlayer.canceled -= instance.OnHealPlayer;
         }
 
         /// <summary>
@@ -1936,5 +2002,19 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// <seealso cref="TestActions.RemoveCallbacks(ITestActions)" />
     public interface ITestActions
     {
+        /// <summary>
+        /// Method invoked when associated input action "DamagePlayer" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDamagePlayer(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "HealPlayer" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHealPlayer(InputAction.CallbackContext context);
     }
 }
