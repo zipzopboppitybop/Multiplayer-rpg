@@ -128,7 +128,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cac2223a3f89654bbdecdc44e95731e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  _health: 10
+  _startingHealth: 10
+  OnHealthCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamagePlayer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealPlayer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3280751360544013329
 GameObject:
   m_ObjectHideFlags: 0

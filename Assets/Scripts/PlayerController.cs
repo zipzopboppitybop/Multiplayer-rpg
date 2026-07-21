@@ -29,11 +29,14 @@ public class PlayerController : NetworkBehaviour
         _camera.AddComponent<ThirdPersonCamera>();
         _camera.GetComponent<ThirdPersonCamera>().Target = transform;
         _camera.transform.SetParent(this.transform);
+
+        PlayerEvents.LocalPlayerSpawned(_hp);
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
         Destroy(_camera);
+        PlayerEvents.Clear();
     }
 
     public override void FixedUpdateNetwork()

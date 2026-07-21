@@ -5,55 +5,79 @@ using System.Collections.Generic;
 
 public class HealthEvents : MonoBehaviour
 {
-    [SerializeField] private Health _hp;
+    [SerializeField] private Sprite _heartSprite;
+    private Health _hp;
     private UIDocument _document;
-
-    void Start()
-    {
-        // root document
-        _document = GetComponent<UIDocument>();
-    }
-
+    private VisualElement _healthBar;
     private void OnEnable()
     {
-        _hp.OnHealthCreated.AddListener((health) => SetHealth(health));
-        _hp.OnDamagePlayer.AddListener((health) => SetHealth(health));
-        _hp.OnHealPlayer.AddListener((health) => SetHealth(health));
-        _hp.OnPlayerDeath.AddListener(GameOver);
+        PlayerEvents.OnLocalPlayerSpawned += Initialize;
+
+        if (PlayerEvents.LocalPlayerHealth != null)
+        {
+            Initialize(PlayerEvents.LocalPlayerHealth);
+        }
     }
 
     private void OnDisable()
     {
+        PlayerEvents.OnLocalPlayerSpawned -= Initialize;
+        Uninitialize();
+    }
+    void Start()
+    {
+        // root document
+        _document = GetComponent<UIDocument>();
+        _healthBar = _document.rootVisualElement.Q("HealthBar");
+
+        if (_healthBar == null)
+        {
+            Debug.Log("No health bar!");
+        }
+    }
+
+    public void Initialize(Health localPlayerHealth)
+    {
+        Uninitialize();
+
+        _hp = localPlayerHealth;
+
+        _hp.OnHealthCreated.AddListener(SetHealth);
+        _hp.OnDamagePlayer.AddListener(SetHealth);
+        _hp.OnHealPlayer.AddListener(SetHealth);
+        _hp.OnPlayerDeath.AddListener(GameOver);
+
+        SetHealth(_hp.CurrentHealth);
+        Debug.Log("Added player");
+    }
+
+    public void Uninitialize()
+    {
+        if (_hp == null) return;
+
         _hp.OnHealthCreated.RemoveListener(SetHealth);
         _hp.OnDamagePlayer.RemoveListener(SetHealth);
         _hp.OnHealPlayer.RemoveListener(SetHealth);
         _hp.OnPlayerDeath.RemoveListener(GameOver);
     }
-
-    private void Awake()
-    {
-        //// host button
-        //_hostButton = _document.rootVisualElement.Q("HostButton") as Button;
-        //_hostButton.RegisterCallback<ClickEvent>(OnHostClick);
-
-        //// join button
-        //_joinButton = _document.rootVisualElement.Q("JoinButton") as Button;
-        //_joinButton.RegisterCallback<ClickEvent>(OnJoinClick);
-
-        //// quit button
-        //_quitButton = _document.rootVisualElement.Q("QuitButton") as Button;
-        //_quitButton.RegisterCallback<ClickEvent>(OnQuitClick);
-
-        //// register callbacks for all buttons
-        //_menuButtons = _document.rootVisualElement.Query<Button>().ToList();
-        //for (int i = 0; i < _menuButtons.Count; i++)
-        //{
-        //    _menuButtons[i].RegisterCallback<ClickEvent>(OnAllButtonsClick);
-        //}
-    }
     private void SetHealth(int health)
     {
-        Debug.Log(health);
+        if (_healthBar == null) return;
+
+        _healthBar.Clear();
+
+        for (int i = 0; i < health; i++)
+        {
+            Image heartImage = new Image();
+            heartImage.name = "HeartIcon";
+            heartImage.style.width = 30;
+            heartImage.style.height = 30;
+            heartImage.sprite = _heartSprite;
+
+            _healthBar.Add(heartImage);
+        }
+
+        Debug.Log($"I set the health to {health} in the ui!");
     }
     private void GameOver()
     {

@@ -3,11 +3,14 @@ using Fusion;
 using UnityEngine.Events;
 public class Health : NetworkBehaviour
 {
-    [SerializeField] private int _health;
+    [SerializeField] private int _startingHealth;
     private bool isEnemy;
     private EnemyData enemyData;
-
     private int _maxHealth;
+
+    [Networked, OnChangedRender(nameof(OnHealthChanged))]
+    private int _health { get; set; }
+    public int CurrentHealth => _health;
 
     // Health Events
     public UnityEvent<int> OnHealthCreated;
@@ -15,7 +18,7 @@ public class Health : NetworkBehaviour
     public UnityEvent<int> OnHealPlayer;
     public UnityEvent OnPlayerDeath;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Spawned()
     {
         if (TryGetComponent<Enemy>(out var enemy))
         {
@@ -25,12 +28,23 @@ public class Health : NetworkBehaviour
         }
         else
         {
-            _maxHealth = _health;
+            _maxHealth = _startingHealth;
+        }
+
+        if (Object.HasStateAuthority)
+        {
+            _health = _maxHealth;
         }
 
         OnHealthCreated.Invoke(_maxHealth);
+    }
 
-        Debug.Log(_maxHealth);
+    private void OnHealthChanged()
+    {
+        if (!isEnemy)
+        {
+            OnDamagePlayer.Invoke(_health);
+        }
     }
 
     public void Damage(int damage)
@@ -39,11 +53,6 @@ public class Health : NetworkBehaviour
         if (_health <= 0) return;
 
         _health -= damage;
-
-        if (!isEnemy)
-        {
-            OnDamagePlayer.Invoke(_health);
-        }
 
         if (_health <= 0)
         {
@@ -56,10 +65,7 @@ public class Health : NetworkBehaviour
             }
 
             OnPlayerDeath.Invoke();
-            Debug.Log("I am dead");
         }
-
-        Debug.Log(_health);
     }
 
     public void Heal(int heal)
@@ -69,18 +75,10 @@ public class Health : NetworkBehaviour
 
         _health += heal;
 
-        if (!isEnemy)
-        {
-            OnHealPlayer.Invoke(_health);
-        }
-
         if (_health >= _maxHealth)
         {
             _health = _maxHealth;
 
-            Debug.Log("I am full hp");
         }
-
-        Debug.Log(_health);
     }
 }
