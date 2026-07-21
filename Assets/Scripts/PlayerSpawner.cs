@@ -23,7 +23,7 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private bool _healPlayer;
 
     // Enemy stuff
-    private List<NetworkObject> _spawnedEnemies = new List<NetworkObject>();
+    public List<NetworkObject> _spawnedEnemies = new List<NetworkObject>();
 
     private void Awake() 
     {

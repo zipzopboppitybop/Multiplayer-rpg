@@ -13,7 +13,7 @@ public class SpawnEnemyTest : NetworkBehaviour
 
     private void Start()
     {
-        _spawner = GameObject.FindWithTag("PlayerSpawner").GetComponent<PlayerSpawner>(); ;
+        _spawner = GameObject.FindWithTag("PlayerSpawner").GetComponent<PlayerSpawner>(); 
     }
     private void OnTriggerEnter(Collider other)
     {

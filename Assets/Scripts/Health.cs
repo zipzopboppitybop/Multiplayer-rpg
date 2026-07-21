@@ -6,7 +6,9 @@ public class Health : NetworkBehaviour
     [SerializeField] private int _startingHealth;
     private bool isEnemy;
     private EnemyData enemyData;
+    private NetworkObject _enemyObject;
     private int _maxHealth;
+    private PlayerSpawner _spawner;
 
     [Networked, OnChangedRender(nameof(OnHealthChanged))]
     private int _health { get; set; }
@@ -20,10 +22,12 @@ public class Health : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Spawned()
     {
+        _spawner = GameObject.FindWithTag("PlayerSpawner").GetComponent<PlayerSpawner>();
         if (TryGetComponent<Enemy>(out var enemy))
         {
             isEnemy = true;
             enemyData = enemy.data;
+            _enemyObject = enemy.GetComponent<NetworkObject>();
             _maxHealth = enemyData.maxHealth;
         }
         else
@@ -62,6 +66,7 @@ public class Health : NetworkBehaviour
             {
                 Runner.Spawn(enemyData.droppedItem, transform.position, Quaternion.identity, PlayerRef.None);
                 Runner.Despawn(Object);
+                _spawner._spawnedEnemies.Remove(_enemyObject);
             }
 
             OnPlayerDeath.Invoke();
