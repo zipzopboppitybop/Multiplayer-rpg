@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : NetworkBehaviour
 {
     [SerializeField] private PressurePlate pressurePlate;
+    [SerializeField] private Lever lever;
     public bool isDoor;
     private Quaternion originalRotation;
     private Quaternion originalTransform;
@@ -27,6 +28,13 @@ public class Door : NetworkBehaviour
     public override void FixedUpdateNetwork()
     {
         if (!Object.HasStateAuthority) return;
+
+        if (lever.flipped)
+        {
+            OpenDoor();
+            Debug.Log("I will keep the door open");
+            return;
+        }
 
         if (!pressurePlate.isSteppedOn)
         {

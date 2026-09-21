@@ -88,6 +88,11 @@ public class PlayerController : NetworkBehaviour
             {
                 enemy.Damage(1);
             }
+
+            if (hit.CompareTag("Lever") && hit.TryGetComponent<Lever>(out var lever))
+            {
+                lever.flip();
+            }
         }
     }
 
