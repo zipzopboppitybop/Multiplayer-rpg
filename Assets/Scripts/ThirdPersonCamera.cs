@@ -13,8 +13,8 @@ public class ThirdPersonCamera : MonoBehaviour
         if (Target == null)
             return;
 
-        Vector3 newPosition = new Vector3(Target.position.x, Target.position.y + 5.0f, Target.position.z - 7.0f);
+        Vector3 newPosition = new Vector3(Target.position.x, Target.position.y + 20.0f, Target.position.z);
         transform.position = newPosition;
-        transform.rotation = Quaternion.Euler(40f, 0f, 0f);
+        transform.rotation = Quaternion.Euler(90f, 0f, 0f);
     }
 }

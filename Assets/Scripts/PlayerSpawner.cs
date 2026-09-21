@@ -103,6 +103,7 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
         // Create the Fusion runner and let it know that we will be providing user input
         _runner = gameObject.AddComponent<NetworkRunner>();
         _runner.ProvideInput = true;
+        _runner.AddCallbacks(this);
         DontDestroyOnLoad(gameObject);
 
         // Create the NetworkSceneInfo from the current scene

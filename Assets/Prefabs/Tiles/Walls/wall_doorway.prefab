@@ -300,6 +300,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall_doorway
       objectReference: {fileID: 0}
+    - target: {fileID: 5980314168419120999, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5980314168419120999, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5980314168419120999, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5980314168419120999, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -315,13 +331,78 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5980314168419120999, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 329393266649696758}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3245047377962470163, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5159226055393252397}
+    - targetCorrespondingSourceObject: {fileID: 3245047377962470163, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7443555944939751259}
+    - targetCorrespondingSourceObject: {fileID: 3245047377962470163, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9139738625764782010}
   m_SourcePrefab: {fileID: 100100000, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
 --- !u!4 &1665151638303318866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
   m_PrefabInstance: {fileID: 1193867226433176761}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4438806023310135210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3245047377962470163, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
+  m_PrefabInstance: {fileID: 1193867226433176761}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5159226055393252397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4438806023310135210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2c6cf1501bf0e4ba20306f1071b156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Door
+  pressurePlate: {fileID: 0}
+  isDoor: 1
+--- !u!114 &7443555944939751259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4438806023310135210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkTransform
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
+--- !u!114 &9139738625764782010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4438806023310135210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkObject
+  SortKey: 3098080815
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 0}
+  - {fileID: 5159226055393252397}
+  ForceRemoteRenderTimeframe: 0
 --- !u!4 &4787097601614590942 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5980314168419120999, guid: 5f24b7619eb350d49b219a37c2c9176c, type: 3}
