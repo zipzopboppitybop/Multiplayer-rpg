@@ -8,6 +8,5 @@ public class Lever : NetworkBehaviour
     public void flip()
     {
         flipped = !flipped;
-        Debug.Log($"I have been flipped to {flipped}");
     }
 }

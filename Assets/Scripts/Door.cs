@@ -29,25 +29,30 @@ public class Door : NetworkBehaviour
     {
         if (!Object.HasStateAuthority) return;
 
-        if (lever.flipped)
+        if (lever)
         {
-            OpenDoor();
-            Debug.Log("I will keep the door open");
-            return;
-        }
-
-        if (!pressurePlate.isSteppedOn)
-        {
-            if (isDoor)
-            {
-                ResetDoor();
-            }
-        }
-        else
-        {
-            if (isDoor)
+            if (lever.flipped)
             {
                 OpenDoor();
+                return;
+            }
+        }
+
+        if (pressurePlate)
+        {
+            if (!pressurePlate.isSteppedOn)
+            {
+                if (isDoor)
+                {
+                    ResetDoor();
+                }
+            }
+            else
+            {
+                if (isDoor)
+                {
+                    OpenDoor();
+                }
             }
         }
     }
