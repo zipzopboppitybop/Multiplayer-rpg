@@ -3,36 +3,31 @@ using UnityEngine;
 
 public class MovingPlatform : NetworkBehaviour
 {
-    [SerializeField] private float maxZ;
-    [SerializeField] private float minZ;
-    [SerializeField] private float maxX;
-    [SerializeField] private float minX;
+    [SerializeField] private Transform[] stops;
     [SerializeField] private float speed;
-    [Networked] private float currentZ { get; set; }
-    [Networked] private float currentX { get; set; }
-    private Vector3 originalPosition;
-
-    public override void Spawned()
-    {
-        originalPosition = transform.position;
-        currentZ = originalPosition.z;
-    }
+    [Networked] private int currentStop { get; set; }
 
     public override void FixedUpdateNetwork()
     {
         if (!Object.HasStateAuthority) return;
 
-        MoveDown();
+        MovePlatform();
     }
 
-    private void MoveDown()
+    private void MovePlatform()
     {
-        if (transform.position.z > minZ)
-        {
-            currentZ -= speed * Runner.DeltaTime;
-            currentZ = Mathf.Max(currentZ, minZ); ;
+        if (stops.Length == 0) return;
 
-            transform.position = new Vector3(originalPosition.x, originalPosition.y, currentZ);
+        Vector3 target = stops[currentStop].position;
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            target,
+            speed * Runner.DeltaTime
+        );
+
+        if (Vector3.Distance(transform.position, target) < 0.01f)
+        {
+            currentStop = (currentStop + 1) % stops.Length;
         }
     }
 }
